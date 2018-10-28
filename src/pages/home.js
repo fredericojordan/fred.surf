@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './home.css';
 
-import Contact from './components/contact'
+import Contacts from '../components/molecules/contacts'
 
 class Home extends Component {
     render() {
         return (
             <div className="Home">
                 <header className="Home-header">
-                    <Contact />
+                    <Contacts />
                 </header>
             </div>
         );
