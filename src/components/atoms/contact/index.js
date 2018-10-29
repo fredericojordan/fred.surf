@@ -3,7 +3,7 @@ import React from 'react'
 import './styles.css'
 
 const Contact = props => (
-    <div class="Contact">
+    <div className="Contact">
         <a href={props.target}>
             <img src={props.image} alt={props.alt} />
             {props.children}
