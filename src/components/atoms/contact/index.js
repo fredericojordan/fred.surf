@@ -3,9 +3,9 @@ import React from 'react'
 import './styles.css'
 
 const Contact = props => (
-    <div className="Contact">
-        <a href={props.target}>
-            <img src={props.image} alt={props.alt} />
+    <div className="contact">
+        <a className="contact__link" href={props.target}>
+            <img className="contact__image" src={props.image} alt={props.alt} />
             {props.children}
         </a>
     </div>
