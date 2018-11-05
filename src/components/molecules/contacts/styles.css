@@ -1,4 +1,6 @@
 .contacts {
     display: flex;
     flex-direction: row;
+    min-height: 80vh;
+    align-items: center;
 }
