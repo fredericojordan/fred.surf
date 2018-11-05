@@ -5,10 +5,10 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 
 
 const Header = props => (
-    <Navbar inverse collapseOnSelect>
+    <Navbar inverse collapseOnSelect fixedTop>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#">Frederico Jordan</a>
+          <a href="/">Frederico Jordan</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
