@@ -21,8 +21,13 @@ const Header = props => (
                         Home
                     </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/contact">
+                <LinkContainer to="/fast-chess">
                     <NavItem eventKey={2}>
+                        fast-chess
+                    </NavItem>
+                </LinkContainer>
+                <LinkContainer to="/contact">
+                    <NavItem eventKey={3}>
                         Contact
                     </NavItem>
                 </LinkContainer>
