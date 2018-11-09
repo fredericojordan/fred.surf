@@ -6,7 +6,7 @@ class FastChessPage extends Component {
     render() {
         return (
             <div className="fast-chess">
-                <iframe src="https://fredericojordan.github.io/fast-chess/" />
+                <iframe title='fast-chess' src="https://fredericojordan.github.io/fast-chess/" />
             </div>
         );
     }
