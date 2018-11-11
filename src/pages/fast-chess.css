@@ -1,0 +1,12 @@
+.fast-chess {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+}
+
+.fast-chess iframe {
+    flex: 1;
+    border: none;
+    margin-top: -64px;
+}

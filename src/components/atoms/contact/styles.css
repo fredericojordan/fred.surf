@@ -1,9 +1,8 @@
 .contact {
-    margin-left: 15px;
-    margin-right: 15px;
 }
 
 .contact__image {
+    padding: 0 10%;
     max-width: 100%;
     height: auto;
 }

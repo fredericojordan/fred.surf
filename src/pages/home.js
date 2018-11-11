@@ -1,15 +1,25 @@
 import React, { Component } from 'react';
-import './home.css';
+import InstagramEmbed from 'react-instagram-embed'
 
-import Contacts from '../components/molecules/contacts'
+import './home.css'
+
 
 class Home extends Component {
     render() {
         return (
             <div className="home">
-                <header className="home__header">
-                    <Contacts />
-                </header>
+                <InstagramEmbed
+                    url='https://instagr.am/p/BISbbi6jw7z/'
+                    maxWidth={640}
+                    hideCaption={false}
+                    containerTagName='div'
+                    protocol=''
+                    injectScript
+                    onLoading={() => {}}
+                    onSuccess={() => {}}
+                    onAfterRender={() => {}}
+                    onFailure={() => {}}
+                />
             </div>
         );
     }
