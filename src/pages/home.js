@@ -8,9 +8,12 @@ class Home extends Component {
         return (
             <div className="home">
                 <div className="home__text">
-                    Hello! <br />
-                    I'm a person. <br />
-                    Check out some stuff I like to do. <br />
+                    Hello!
+                    <br />
+                    I'm a person.
+                    <br />
+                    Check out some stuff I like to do.
+                    <br />
                 </div>
           </div>
         );
