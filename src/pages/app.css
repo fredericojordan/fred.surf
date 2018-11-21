@@ -1,6 +1,9 @@
 .app {
   background: url(/images/background.jpg) no-repeat center center fixed;
   background-size: cover;
+  overflow: auto;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 .tint {
@@ -9,9 +12,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-
   z-index: 1;
-  height: 100vh;
-  width: 100vw;
+  overflow: auto;
+  min-height: 100vh;
+  min-width: 100vw;
   background: rgba(0, 0, 0, 0.6);
 }
