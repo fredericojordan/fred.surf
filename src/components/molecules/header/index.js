@@ -5,9 +5,11 @@ import NavItem from 'react-bootstrap/lib/NavItem';
 import { NavLink } from 'react-router-dom'
 import { LinkContainer } from 'react-router-bootstrap';
 
+import './styles.css'
+
 
 const Header = props => (
-    <Navbar inverse fixedTop>
+    <Navbar inverse fixedTop className='navbar'>
         <Navbar.Header>
             <Navbar.Brand>
                 <NavLink to="/">Frederico Jordan</NavLink>
@@ -21,9 +23,9 @@ const Header = props => (
                         Home
                     </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/fast-chess">
+                <LinkContainer to="/sports">
                     <NavItem eventKey={2}>
-                        fast-chess
+                        Sports
                     </NavItem>
                 </LinkContainer>
                 <LinkContainer to="/contact">
@@ -31,6 +33,11 @@ const Header = props => (
                         Contact
                     </NavItem>
                 </LinkContainer>
+                {/*<LinkContainer to="/fast-chess">*/}
+                    {/*<NavItem eventKey={4}>*/}
+                        {/*fast-chess*/}
+                    {/*</NavItem>*/}
+                {/*</LinkContainer>*/}
             </Nav>
         </Navbar.Collapse>
     </Navbar>
