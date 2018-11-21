@@ -10,8 +10,10 @@ class App extends Component {
         return (
             <Router>
                 <div className="app">
-                  <Header />
-                  <Container />
+                  <div className="tint">
+                    <Header />
+                    <Container />
+                  </div>
                 </div>
             </Router>
         );

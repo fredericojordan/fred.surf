@@ -1,0 +1,9 @@
+.sports {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.insta {
+    margin: 10px;
+}

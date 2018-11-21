@@ -1,9 +1,16 @@
 .home {
-    margin: 10px;
-    display: flex;
-    flex-direction: row;
+  margin: 5vh 5vw 0 5vw;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.insta {
-    margin: 10px;
+.home__text {
+  margin-top: 20px;
+  color: white;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  font-size: 4vw
 }
