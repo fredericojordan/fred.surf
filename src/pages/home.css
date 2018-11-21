@@ -2,7 +2,7 @@
   margin: 5vh 5vw 0 5vw;
   display: flex;
   flex-direction: column;
-  text-align: left;
+  text-align: center;
   align-items: center;
   justify-content: flex-start;
 }
@@ -12,5 +12,6 @@
   color: white;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: bold;
-  font-size: 4vw
+  font-size: 5vh;
+  line-height: 15vh;
 }
