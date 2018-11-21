@@ -2,11 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './app';
 import ContactPage from './contact';
+import SportsPage from './sports';
 import Home from './home';
 
 it('Renders Home without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<Home />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+
+it('Renders SportsPage without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<SportsPage />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
