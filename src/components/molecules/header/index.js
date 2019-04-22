@@ -28,16 +28,16 @@ const Header = props => (
                         Sports
                     </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/contact">
+                <LinkContainer to="/fast-chess">
                     <NavItem eventKey={3}>
+                        Chess AI
+                    </NavItem>
+                </LinkContainer>
+                <LinkContainer to="/contact">
+                    <NavItem eventKey={4}>
                         Contact
                     </NavItem>
                 </LinkContainer>
-                {/*<LinkContainer to="/fast-chess">*/}
-                    {/*<NavItem eventKey={4}>*/}
-                        {/*fast-chess*/}
-                    {/*</NavItem>*/}
-                {/*</LinkContainer>*/}
             </Nav>
         </Navbar.Collapse>
     </Navbar>
