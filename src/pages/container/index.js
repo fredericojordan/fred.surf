@@ -5,6 +5,7 @@ import Home from "../home";
 import SportsPage from "../sports";
 import FastChessPage from "../fast-chess";
 import ContactPage from "../contact";
+import NBodyPage from "../nbody";
 import Page404 from "../404";
 
 
@@ -17,6 +18,7 @@ class Container extends Component {
                     <Route path="/sports" component={SportsPage}/>
                     <Route path="/fast-chess" component={FastChessPage}/>
                     <Route path="/contact" component={ContactPage}/>
+                    <Route path="/nbody" component={NBodyPage}/>
                     <Route component={Page404}/>
                 </Switch>
             </div>

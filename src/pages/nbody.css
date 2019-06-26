@@ -1,0 +1,14 @@
+#canvas {
+    border: 2px solid #bbc;
+    border-radius: 15px;
+    position: fixed;
+
+    left: 50vw;
+    top: 50vh;
+    margin-left: -350px;
+    margin-top: -350px;
+
+    padding: 0;
+    cursor: default;
+    z-index: 0;
+}

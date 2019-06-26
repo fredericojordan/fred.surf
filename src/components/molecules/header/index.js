@@ -33,8 +33,13 @@ const Header = props => (
                         Chess AI
                     </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/contact">
+                <LinkContainer to="/nbody">
                     <NavItem eventKey={4}>
+                        N-Body
+                    </NavItem>
+                </LinkContainer>
+                <LinkContainer to="/contact">
+                    <NavItem eventKey={5}>
                         Contact
                     </NavItem>
                 </LinkContainer>
