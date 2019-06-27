@@ -115,114 +115,81 @@ if (typeof Math.sign == "undefined") {
     };
 }
 
-
-
-
-
-
-
-
-var low_color = [200, 60, 0];
-var high_color = [255, 255, 100];
-let hex2 = number => number <= 0x10 ? `0${number.toString(16)}` : number.toString(16);
-
-var Particle = function (c, r, v) {
-    this.c = c;
-    this.r = r;
-    this.v = v;
-    this.m = r * r * Math.PI;
-    this.a = new Vector();
-
-
-    var proportion = r > 100.0 ? 1.0 : r/80.0;
-    var colors = [
-        Math.floor(low_color[0]*(1-proportion) + high_color[0]*proportion),
-        Math.floor(low_color[1]*(1-proportion) + high_color[1]*proportion),
-        Math.floor(low_color[2]*(1-proportion) + high_color[2]*proportion),
-    ];
-    this.colour = "#" + hex2(colors[0]) + hex2(colors[1]) + hex2(colors[2]) + "c0";
+var Particle = function (position, radius, speed) {
+    this.position = position;
+    this.radius = radius;
+    this.speed = speed;
+    this.mass = (4/3) * Math.PI * (radius * radius * radius);
+    this.acceleration = new Vector();
 };
-
-
-
-
-
-
-
-
 
 var RAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) {
         window.setTimeout(callback, 1000 / 60);
     };
 
 var canvas = document.getElementById("canvas");
-var ctx = canvas.getContext("2d");
+var context = canvas.getContext("2d");
 
-var w = canvas.width;
-var h = canvas.height;
-
-var gravity = 1;
+var gravity = 0.01;
 
 var particles = [];
 var newParticles = [];
 
+var click_start_t = null;
+var click_start_x = null;
+var click_start_y = null;
 
 window.addEventListener("mousemove", function (e) {
-
 });
 
 window.addEventListener("mousedown", function (e) {
-    this.click_start = Date.now();
-    this.x_start = e.pageX - canvas.getBoundingClientRect().left;
-    this.y_start = e.pageY - canvas.getBoundingClientRect().top;
-
+    click_start_t = Date.now();
+    click_start_x = e.pageX - canvas.getBoundingClientRect().left;
+    click_start_y = e.pageY - canvas.getBoundingClientRect().top;
 });
 
 window.addEventListener("mouseup", function (e) {
-    var mass = (Date.now() - this.click_start)/30;
+    if (!click_start_t) return;
 
-    var x_end = e.pageX - canvas.getBoundingClientRect().left;
-    var y_end = e.pageY - canvas.getBoundingClientRect().top;
-    var v_x = (this.x_start - x_end)/10;
-    var v_y = (this.y_start - y_end)/10;
+    let mass = (Date.now() - click_start_t)/30;
+    let x_end = e.pageX - canvas.getBoundingClientRect().left;
+    let y_end = e.pageY - canvas.getBoundingClientRect().top;
+    let v_x = (click_start_x - x_end)/10;
+    let v_y = (click_start_y - y_end)/10;
 
-    newParticles.push(new Particle(new Vector(x_end, y_end), mass, new Vector(v_x, v_y)));
+    newParticles.push(new Particle(new Vector(click_start_x, click_start_y), mass, new Vector(v_x, v_y)));
+
+    click_start_t = null;
 });
 
 
 function compute_forces() {
-    for (var i = 0; i < particles.length; i++) {
-        var p = particles[i];
-        p.a.set(0);
+    for (let i = 0; i < particles.length; i++) {
+        let p = particles[i];
+        p.acceleration.set(0);
 
-        for (var j = 0; j < i; j++) {
-            var p2 = particles[j];
+        for (let j = 0; j < i; j++) {
+            let p2 = particles[j];
 
-            var d = p.c.sub(p2.c);
-            var norm = Math.sqrt(100.0 + d.lengthSq());
-            var mag = gravity / (norm * norm * norm);
+            let d = p.position.sub(p2.position);
+            let norm = Math.sqrt(100.0 + d.lengthSq());
+            let mag = gravity / (norm * norm * norm);
 
-            p.a.set(p.a.sub(d.mul(mag * p2.m)));
-            p2.a.set(p2.a.add(d.mul(mag * p.m)));
-
+            p.acceleration.set(p.acceleration.sub(d.mul(mag * p2.mass)));
+            p2.acceleration.set(p2.acceleration.add(d.mul(mag * p.mass)));
         }
     }
-
 }
 
 function do_physics(dt) {
-    for (var i1 = 0; i1 < particles.length; i1++) {
-        var p1 = particles[i1];
-        p1.c.set(p1.c.add(p1.v.mul(0.5 * dt)));
-    }
     compute_forces();
-    for (var i2 = 0; i2 < particles.length; i2++) {
-        var p2 = particles[i2];
-        p2.v.set(p2.v.add(p2.a.mul(dt)));
+
+    for (let i = 0; i < particles.length; i++) {
+        particles[i].speed.set(particles[i].speed.add(particles[i].acceleration.mul(dt)));
     }
-    for (var i3 = 0; i3 < particles.length; i3++) {
-        var p3 = particles[i3];
-        p3.c.set(p3.c.add(p3.v.mul(0.5 * dt)));
+
+    for (let i = 0; i < particles.length; i++) {
+        particles[i].position.set(particles[i].position.add(particles[i].speed.mul(0.5 * dt)));
     }
 }
 
@@ -243,17 +210,40 @@ function update() {
     RAF(update);
 }
 
+function radius_color(radius) {
+    const low_color = [200, 60, 0];
+    const high_color = [255, 255, 100];
+    const max_radius = 100.0;
+
+    let proportion = radius > max_radius ? 1.0 : radius/max_radius;
+    let colors = [
+        Math.floor(low_color[0]*(1-proportion) + high_color[0]*proportion),
+        Math.floor(low_color[1]*(1-proportion) + high_color[1]*proportion),
+        Math.floor(low_color[2]*(1-proportion) + high_color[2]*proportion),
+    ];
+    let hex2 = number => number <= 0x10 ? `0${number.toString(16)}` : number.toString(16);
+    return "#" + hex2(colors[0]) + hex2(colors[1]) + hex2(colors[2]) + "cc";
+}
+
+function render_body(x, y, radius) {
+    context.beginPath();
+    context.arc(x, y, radius, 0, Math.PI * 2, false);
+    context.fillStyle = radius_color(radius);
+    context.fill();
+    context.closePath();
+}
+
 function render() {
-    ctx.clearRect(0, 0, w, h);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
+        render_body(p.position.x, p.position.y, p.radius);
+    }
 
-        ctx.beginPath();
-        ctx.arc(p.c.x, p.c.y, p.r, 0, Math.PI * 2, false);
-        ctx.fillStyle = p.colour;
-        ctx.fill();
-        ctx.closePath();
+    if (click_start_t) {
+        let r = (Date.now() - click_start_t)/30;
+        render_body(click_start_x, click_start_y, r);
     }
 }
 

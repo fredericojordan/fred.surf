@@ -6,7 +6,7 @@ class NBodyPage extends Component {
     render() {
         return (
             <div className="nbody">
-                <canvas id="canvas" width="700" height="700">
+                <canvas id="canvas" height="600" width="800">
                   Please update your browser in order to view this page.
                 </canvas>
             </div>
