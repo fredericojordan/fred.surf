@@ -139,20 +139,22 @@ var clickStartY = null;
 var traces = false;
 
 const toggleTraces = () => traces = !traces;
-const clearParticles = () => { particles = []; newParticles = []; }
-const preset = () => { particles = []; newParticles = [
-    new Particle(new Vector(500, 300), 120, new Vector(0, 0)),
-    new Particle(new Vector(350, 300), 6, new Vector(0, 31)),
-    new Particle(new Vector(825, 300), 12, new Vector(0, -21)),
-    new Particle(new Vector(840, 300), 3, new Vector(0, -22)),
 
-    new Particle(new Vector(300, 300), 8, new Vector(0, -28)),
-]; }
+const clearParticles = () => { particles = []; newParticles = []; };
 
-window.addEventListener("mousemove", function (e) {
-});
+const preset = () => {
+    particles = [];
+    newParticles = [
+        new Particle(new Vector(500, 300), 120, new Vector(0, 0)),
+        new Particle(new Vector(350, 300), 6, new Vector(0, 31)),
+        new Particle(new Vector(825, 300), 12, new Vector(0, -21)),
+        new Particle(new Vector(840, 300), 3, new Vector(0, -22)),
 
-window.addEventListener("mousedown", function (e) {
+        new Particle(new Vector(300, 300), 8, new Vector(0, -28)),
+    ];
+};
+
+function onPress(e) {
     let canvas = document.getElementById("canvas");
     clickStartX = e.pageX - canvas.getBoundingClientRect().left;
     clickStartY = e.pageY - canvas.getBoundingClientRect().top;
@@ -165,9 +167,9 @@ window.addEventListener("mousedown", function (e) {
     }
 
     clickStartTime = Date.now();
-});
+}
 
-window.addEventListener("mouseup", function (e) {
+function onRelease(e) {
     if (!clickStartTime) return;
 
     let canvas = document.getElementById("canvas");
@@ -180,7 +182,12 @@ window.addEventListener("mouseup", function (e) {
     newParticles.push(new Particle(new Vector(clickStartX, clickStartY), mass, new Vector(v_x, v_y)));
 
     clickStartTime = null;
-});
+}
+
+window.addEventListener("mousedown", onPress);
+window.addEventListener("mouseup", onRelease);
+window.addEventListener("touchstart", onPress);
+window.addEventListener("touchend", onRelease);
 
 
 function calculateAcceleration() {
