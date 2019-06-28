@@ -127,43 +127,63 @@ var RAF = window.requestAnimationFrame || window.webkitRequestAnimationFrame || 
         window.setTimeout(callback, 1000 / 60);
     };
 
-var canvas = document.getElementById("canvas");
-var context = canvas.getContext("2d");
-
 var gravity = 0.01;
 
 var particles = [];
 var newParticles = [];
 
-var click_start_t = null;
-var click_start_x = null;
-var click_start_y = null;
+var clickStartTime = null;
+var clickStartX = null;
+var clickStartY = null;
+
+var traces = false;
+
+const toggleTraces = () => traces = !traces;
+const clearParticles = () => { particles = []; newParticles = []; }
+const preset = () => { particles = []; newParticles = [
+    new Particle(new Vector(500, 300), 120, new Vector(0, 0)),
+    new Particle(new Vector(350, 300), 6, new Vector(0, 31)),
+    new Particle(new Vector(825, 300), 12, new Vector(0, -21)),
+    new Particle(new Vector(840, 300), 3, new Vector(0, -22)),
+
+    new Particle(new Vector(300, 300), 8, new Vector(0, -28)),
+]; }
 
 window.addEventListener("mousemove", function (e) {
 });
 
 window.addEventListener("mousedown", function (e) {
-    click_start_t = Date.now();
-    click_start_x = e.pageX - canvas.getBoundingClientRect().left;
-    click_start_y = e.pageY - canvas.getBoundingClientRect().top;
+    let canvas = document.getElementById("canvas");
+    clickStartX = e.pageX - canvas.getBoundingClientRect().left;
+    clickStartY = e.pageY - canvas.getBoundingClientRect().top;
+
+    if ( clickStartX < 0 ||
+         clickStartY < 0 ||
+         clickStartX > canvas.width ||
+         clickStartY > canvas.height ) {
+        return;
+    }
+
+    clickStartTime = Date.now();
 });
 
 window.addEventListener("mouseup", function (e) {
-    if (!click_start_t) return;
+    if (!clickStartTime) return;
 
-    let mass = (Date.now() - click_start_t)/30;
+    let canvas = document.getElementById("canvas");
+    let mass = (Date.now() - clickStartTime)/30;
     let x_end = e.pageX - canvas.getBoundingClientRect().left;
     let y_end = e.pageY - canvas.getBoundingClientRect().top;
-    let v_x = (click_start_x - x_end)/10;
-    let v_y = (click_start_y - y_end)/10;
+    let v_x = (clickStartX - x_end)/10;
+    let v_y = (clickStartY - y_end)/10;
 
-    newParticles.push(new Particle(new Vector(click_start_x, click_start_y), mass, new Vector(v_x, v_y)));
+    newParticles.push(new Particle(new Vector(clickStartX, clickStartY), mass, new Vector(v_x, v_y)));
 
-    click_start_t = null;
+    clickStartTime = null;
 });
 
 
-function compute_forces() {
+function calculateAcceleration() {
     for (let i = 0; i < particles.length; i++) {
         let p = particles[i];
         p.acceleration.set(0);
@@ -181,16 +201,22 @@ function compute_forces() {
     }
 }
 
-function do_physics(dt) {
-    compute_forces();
-
+function applyAcceleration(dt) {
     for (let i = 0; i < particles.length; i++) {
         particles[i].speed.set(particles[i].speed.add(particles[i].acceleration.mul(dt)));
     }
+}
 
+function moveBodies(dt) {
     for (let i = 0; i < particles.length; i++) {
         particles[i].position.set(particles[i].position.add(particles[i].speed.mul(0.5 * dt)));
     }
+}
+
+function step(dt) {
+    calculateAcceleration();
+    applyAcceleration(dt);
+    moveBodies(dt)
 }
 
 function update() {
@@ -202,7 +228,7 @@ function update() {
     newParticles = [];
 
     for (var k = 0; k < 4; k++) { // increase the greater than value to increase simulation step rate
-        do_physics(1.0 / 8); // increase the divisor to increase accuracy and decrease simulation speed
+        step(1.0 / 8); // increase the divisor to increase accuracy and decrease simulation speed
     }
 
     render();
@@ -210,7 +236,7 @@ function update() {
     RAF(update);
 }
 
-function radius_color(radius) {
+function radiusColor(radius) {
     const low_color = [200, 60, 0];
     const high_color = [255, 255, 100];
     const max_radius = 100.0;
@@ -225,25 +251,31 @@ function radius_color(radius) {
     return "#" + hex2(colors[0]) + hex2(colors[1]) + hex2(colors[2]) + "cc";
 }
 
-function render_body(x, y, radius) {
+function renderBody(context, x, y, radius) {
     context.beginPath();
     context.arc(x, y, radius, 0, Math.PI * 2, false);
-    context.fillStyle = radius_color(radius);
+    context.fillStyle = radiusColor(radius);
     context.fill();
     context.closePath();
 }
 
 function render() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    let canvas = document.getElementById("canvas");
+    if (!canvas) return;
+    let context = canvas.getContext("2d");
+
+    if (!traces) {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+    }
 
     for (var i = 0; i < particles.length; i++) {
         var p = particles[i];
-        render_body(p.position.x, p.position.y, p.radius);
+        renderBody(context, p.position.x, p.position.y, p.radius);
     }
 
-    if (click_start_t) {
-        let r = (Date.now() - click_start_t)/30;
-        render_body(click_start_x, click_start_y, r);
+    if (clickStartTime) {
+        let r = (Date.now() - clickStartTime)/30;
+        renderBody(context, clickStartX, clickStartY, r);
     }
 }
 

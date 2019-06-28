@@ -1,13 +1,25 @@
 #canvas {
     border: 2px solid #bbc;
     border-radius: 15px;
-    position: fixed;
 
-    top: 70px;
-    left: 50vw;
-    margin-left: -400px;
+    margin: 10px;
 
     padding: 0;
     cursor: default;
     z-index: 0;
+}
+
+.nbodyContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+button {
+    margin: 0 5px;
 }
