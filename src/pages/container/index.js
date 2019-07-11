@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import ReactGA from "react-ga";
 import { Route, withRouter, Switch } from "react-router-dom";
 
 import Home from "../home";
@@ -10,6 +11,12 @@ import Page404 from "../404";
 
 
 class Container extends Component {
+    constructor(props, context) {
+        super(props, context);
+        ReactGA.initialize('UA-143670401-1')
+        ReactGA.pageview(window.location.pathname);
+    }
+
     render() {
         return (
             <div className='route-container'>
@@ -23,6 +30,12 @@ class Container extends Component {
                 </Switch>
             </div>
         );
+    }
+
+    componentDidUpdate(prevProps) {
+        if (window.location.pathname !== prevProps.location.pathname) {
+            ReactGA.pageview(window.location.pathname);
+        }
     }
 }
 
