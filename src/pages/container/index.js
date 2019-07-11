@@ -4,8 +4,9 @@ import { Route, withRouter, Switch } from "react-router-dom";
 import Home from "../home";
 import SportsPage from "../sports";
 import FastChessPage from "../fast-chess";
-import ContactPage from "../contact";
 import NBodyPage from "../nbody";
+import SurfApiPage from "../surf-api";
+import ContactPage from "../contact";
 import Page404 from "../404";
 
 
@@ -17,8 +18,9 @@ class Container extends Component {
                     <Route exact path="/" component={Home}/>
                     <Route path="/sports" component={SportsPage}/>
                     <Route path="/fast-chess" component={FastChessPage}/>
-                    <Route path="/contact" component={ContactPage}/>
                     <Route path="/nbody" component={NBodyPage}/>
+                    <Route path="/surf-api" component={SurfApiPage}/>
+                    <Route path="/contact" component={ContactPage}/>
                     <Route component={Page404}/>
                 </Switch>
             </div>
