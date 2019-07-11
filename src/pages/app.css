@@ -9,12 +9,14 @@
 @media screen and (max-width: 2000px) {
   .app {
     background: url(/images/background-medium-min.jpg) no-repeat center center fixed;
+    background-size: cover;
   }
 }
 
 @media screen and (max-width: 1000px) {
   .app {
     background: url(/images/background-small-min.jpg) no-repeat center center fixed;
+    background-size: cover;
   }
 }
 
