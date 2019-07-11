@@ -1,20 +1,20 @@
 .app {
-  background: url(/images/background-big.jpg) no-repeat center center fixed;
+  background: url(/images/background-big-min.jpg) no-repeat center center fixed;
   background-size: cover;
   overflow: auto;
   min-height: 100vh;
   min-width: 100vw;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 2000px) {
   .app {
-    background: url(/images/background-small.jpg) no-repeat center center fixed;
+    background: url(/images/background-medium-min.jpg) no-repeat center center fixed;
   }
 }
 
-@media screen and (max-width: 2000px) {
+@media screen and (max-width: 1000px) {
   .app {
-    background: url(/images/background-medium.jpg) no-repeat center center fixed;
+    background: url(/images/background-small-min.jpg) no-repeat center center fixed;
   }
 }
 
