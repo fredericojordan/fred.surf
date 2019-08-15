@@ -7,6 +7,7 @@ import SportsPage from "../sports";
 import FastChessPage from "../fast-chess";
 import ContactPage from "../contact";
 import NBodyPage from "../nbody";
+import JS13k from "../js13k";
 import Page404 from "../404";
 
 
@@ -26,6 +27,7 @@ class Container extends Component {
                     <Route path="/fast-chess" component={FastChessPage}/>
                     <Route path="/contact" component={ContactPage}/>
                     <Route path="/nbody" component={NBodyPage}/>
+                    <Route path="/js13k" component={JS13k}/>
                     <Route component={Page404}/>
                 </Switch>
             </div>

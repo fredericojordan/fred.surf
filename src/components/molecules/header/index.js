@@ -38,8 +38,13 @@ const Header = props => (
                         N-Body
                     </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/contact">
+                <LinkContainer to="/js13k">
                     <NavItem eventKey={5}>
+                        js13k
+                    </NavItem>
+                </LinkContainer>
+                <LinkContainer to="/contact">
+                    <NavItem eventKey={6}>
                         Contact
                     </NavItem>
                 </LinkContainer>
