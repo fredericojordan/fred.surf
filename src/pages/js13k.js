@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class JS13k extends Component {
-    render = () => <div id="js13k" style={{margin: 20}}></div>
+    render = () => <div id="js13k"></div>
 
     componentDidMount () {
         const script = document.createElement("script");
